@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+        <!-- Kullanıcı listesi -->
+        <div class="col-md-4">
+            <h3>Kullanıcılar</h3>
+            <ul class="list-group">
+                <li *ngFor="let u of users" class="list-group-item" (click)="selectUser(u.id)">
+                    {{u.username}}
+                </li>
+            </ul>
+        </div>
+        <!-- Chat ekranı -->
+        <div class="col-md-8">
+            <h3>Sohbet Ekranı - {{user.username}}</h3>
+            <div class="chat-box" style="height:400px; overflow-y:scroll; border:1px solid #ccc; padding:10px;">
+                <p *ngFor="let message of messages"><strong>{{message.user.username}}:</strong> {{message.text}} - {{message.timestamp | date: 'dd.MM.yyyy HH:mm:ss'}}</p>                
+            </div>
+            <div class="input-button-container" style="display: flex; justify-content: space-between; margin-top:10px;">
+                <input class="form-control" [(ngModel)]="message.text" placeholder="Mesajınız..."/>
+                <button class="btn btn-success mx-1" (click)="postMessage()">Gönder</button>
+            </div>
+        </div>
+    </div>
+</div>

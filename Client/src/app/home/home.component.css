@@ -1,0 +1,13 @@
+.container{
+    margin-top: 120px;
+}
+
+[class^="col-md"]{
+    border: 1px solid #ccc;
+    padding: 30px;
+}
+
+.input-button-container {
+    display: flex;
+    justify-content: space-between; /* isteğe bağlı: bu, elemanlar arasında eşit boşluk bırakır */
+}

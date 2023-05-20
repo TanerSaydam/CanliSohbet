@@ -1,0 +1,35 @@
+config:
+  target: "http://localhost:7249"
+  phases:
+    - duration: 600
+      arrivalRate: 34
+  defaults:
+    headers:
+      Content-Type: "application/json"
+    tls:
+      rejectUnauthorized: false
+scenarios:
+  - flow:
+      - post:
+          url: "/api/Values/Login"
+          json:
+            UserName: "taner"
+          capture:
+            json: "$.id"  # Login response's user ID field
+            as: "userId"
+      - get:
+          url: "/api/Values/GetUsers/{{ userId }}"
+      - post:
+          url: "/api/Values/GetChatMessages"
+          json:
+            UserId: "{{ userId }}"
+            ToUserId: "2"
+      - loop:
+        - post:
+            url: "/api/Values/PostMessage"
+            json:
+              ChatId: "1"
+              UserId: "{{ userId }}"
+              Text: "Hello"
+        - think: 1 # Send a message every 10 seconds
+        count: 30 # Send 30 messages per user
